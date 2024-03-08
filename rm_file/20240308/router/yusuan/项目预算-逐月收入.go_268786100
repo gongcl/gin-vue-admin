@@ -1,0 +1,27 @@
+package yusuan
+
+import (
+	"github.com/flipped-aurora/gin-vue-admin/server/api/v1"
+	"github.com/flipped-aurora/gin-vue-admin/server/middleware"
+	"github.com/gin-gonic/gin"
+)
+
+type YusuanxiangmuRouter struct {
+}
+
+// InitYusuanxiangmuRouter 初始化 项目预算-逐月收入表 路由信息
+func (s *YusuanxiangmuRouter) InitYusuanxiangmuRouter(Router *gin.RouterGroup) {
+	ysxmRouter := Router.Group("ysxm").Use(middleware.OperationRecord())
+	ysxmRouterWithoutRecord := Router.Group("ysxm")
+	var ysxmApi = v1.ApiGroupApp.YusuanApiGroup.YusuanxiangmuApi
+	{
+		ysxmRouter.POST("createYusuanxiangmu", ysxmApi.CreateYusuanxiangmu)   // 新建项目预算-逐月收入表
+		ysxmRouter.DELETE("deleteYusuanxiangmu", ysxmApi.DeleteYusuanxiangmu) // 删除项目预算-逐月收入表
+		ysxmRouter.DELETE("deleteYusuanxiangmuByIds", ysxmApi.DeleteYusuanxiangmuByIds) // 批量删除项目预算-逐月收入表
+		ysxmRouter.PUT("updateYusuanxiangmu", ysxmApi.UpdateYusuanxiangmu)    // 更新项目预算-逐月收入表
+	}
+	{
+		ysxmRouterWithoutRecord.GET("findYusuanxiangmu", ysxmApi.FindYusuanxiangmu)        // 根据ID获取项目预算-逐月收入表
+		ysxmRouterWithoutRecord.GET("getYusuanxiangmuList", ysxmApi.GetYusuanxiangmuList)  // 获取项目预算-逐月收入表列表
+	}
+}

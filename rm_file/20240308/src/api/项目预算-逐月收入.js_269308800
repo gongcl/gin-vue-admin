@@ -1,0 +1,97 @@
+import service from '@/utils/request'
+
+// @Tags Yusuanxiangmu
+// @Summary 创建项目预算-逐月收入表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body model.Yusuanxiangmu true "创建项目预算-逐月收入表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
+// @Router /ysxm/createYusuanxiangmu [post]
+export const createYusuanxiangmu = (data) => {
+  return service({
+    url: '/ysxm/createYusuanxiangmu',
+    method: 'post',
+    data
+  })
+}
+
+// @Tags Yusuanxiangmu
+// @Summary 删除项目预算-逐月收入表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body model.Yusuanxiangmu true "删除项目预算-逐月收入表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
+// @Router /ysxm/deleteYusuanxiangmu [delete]
+export const deleteYusuanxiangmu = (params) => {
+  return service({
+    url: '/ysxm/deleteYusuanxiangmu',
+    method: 'delete',
+    params
+  })
+}
+
+// @Tags Yusuanxiangmu
+// @Summary 批量删除项目预算-逐月收入表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body request.IdsReq true "批量删除项目预算-逐月收入表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
+// @Router /ysxm/deleteYusuanxiangmu [delete]
+export const deleteYusuanxiangmuByIds = (params) => {
+  return service({
+    url: '/ysxm/deleteYusuanxiangmuByIds',
+    method: 'delete',
+    params
+  })
+}
+
+// @Tags Yusuanxiangmu
+// @Summary 更新项目预算-逐月收入表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body model.Yusuanxiangmu true "更新项目预算-逐月收入表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
+// @Router /ysxm/updateYusuanxiangmu [put]
+export const updateYusuanxiangmu = (data) => {
+  return service({
+    url: '/ysxm/updateYusuanxiangmu',
+    method: 'put',
+    data
+  })
+}
+
+// @Tags Yusuanxiangmu
+// @Summary 用id查询项目预算-逐月收入表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query model.Yusuanxiangmu true "用id查询项目预算-逐月收入表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Router /ysxm/findYusuanxiangmu [get]
+export const findYusuanxiangmu = (params) => {
+  return service({
+    url: '/ysxm/findYusuanxiangmu',
+    method: 'get',
+    params
+  })
+}
+
+// @Tags Yusuanxiangmu
+// @Summary 分页获取项目预算-逐月收入表列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query request.PageInfo true "分页获取项目预算-逐月收入表列表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Router /ysxm/getYusuanxiangmuList [get]
+export const getYusuanxiangmuList = (params) => {
+  return service({
+    url: '/ysxm/getYusuanxiangmuList',
+    method: 'get',
+    params
+  })
+}

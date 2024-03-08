@@ -1,0 +1,88 @@
+package yusuan
+
+import (
+	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/yusuan"
+    yusuanReq "github.com/flipped-aurora/gin-vue-admin/server/model/yusuan/request"
+)
+
+type YusuanxiangmuService struct {
+}
+
+// CreateYusuanxiangmu 创建项目预算-逐月收入表记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (ysxmService *YusuanxiangmuService) CreateYusuanxiangmu(ysxm *yusuan.Yusuanxiangmu) (err error) {
+	err = global.GVA_DB.Create(ysxm).Error
+	return err
+}
+
+// DeleteYusuanxiangmu 删除项目预算-逐月收入表记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (ysxmService *YusuanxiangmuService)DeleteYusuanxiangmu(项目名称 string) (err error) {
+	err = global.GVA_DB.Delete(&yusuan.Yusuanxiangmu{},"项目名称 = ?",项目名称).Error
+	return err
+}
+
+// DeleteYusuanxiangmuByIds 批量删除项目预算-逐月收入表记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (ysxmService *YusuanxiangmuService)DeleteYusuanxiangmuByIds(项目名称s []string) (err error) {
+	err = global.GVA_DB.Delete(&[]yusuan.Yusuanxiangmu{},"项目名称 in ?",项目名称s).Error
+	return err
+}
+
+// UpdateYusuanxiangmu 更新项目预算-逐月收入表记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (ysxmService *YusuanxiangmuService)UpdateYusuanxiangmu(ysxm yusuan.Yusuanxiangmu) (err error) {
+	err = global.GVA_DB.Save(&ysxm).Error
+	return err
+}
+
+// GetYusuanxiangmu 根据项目名称获取项目预算-逐月收入表记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (ysxmService *YusuanxiangmuService)GetYusuanxiangmu(项目名称 string) (ysxm yusuan.Yusuanxiangmu, err error) {
+	err = global.GVA_DB.Where("项目名称 = ?", 项目名称).First(&ysxm).Error
+	return
+}
+
+// GetYusuanxiangmuInfoList 分页获取项目预算-逐月收入表记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (ysxmService *YusuanxiangmuService)GetYusuanxiangmuInfoList(info yusuanReq.YusuanxiangmuSearch) (list []yusuan.Yusuanxiangmu, total int64, err error) {
+	limit := info.PageSize
+	offset := info.PageSize * (info.Page - 1)
+    // 创建db
+	db := global.GVA_DB.Model(&yusuan.Yusuanxiangmu{})
+    var ysxms []yusuan.Yusuanxiangmu
+    // 如果有条件搜索 下方会自动创建搜索语句
+    if info.交付部 != "" {
+        db = db.Where("交付部 LIKE ?","%"+ info.交付部+"%")
+    }
+    if info.项目名称 != "" {
+        db = db.Where("项目名称 LIKE ?","%"+ info.项目名称+"%")
+    }
+    if info.客户名称 != "" {
+        db = db.Where("客户名称 LIKE ?","%"+ info.客户名称+"%")
+    }
+	err = db.Count(&total).Error
+	if err!=nil {
+    	return
+    }
+        var OrderStr string
+        orderMap := make(map[string]bool)
+         	orderMap["项目名称"] = true
+         	orderMap["客户名称"] = true
+         	orderMap["预算NR"] = true
+       if orderMap[info.Sort] {
+          OrderStr = info.Sort
+          if info.Order == "descending" {
+             OrderStr = OrderStr + " desc"
+          }
+          db = db.Order(OrderStr)
+       }
+
+	if limit != 0 {
+       db = db.Limit(limit).Offset(offset)
+    }
+	
+	err = db.Find(&ysxms).Error
+	return  ysxms, total, err
+}

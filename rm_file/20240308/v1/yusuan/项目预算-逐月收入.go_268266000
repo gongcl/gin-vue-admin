@@ -1,0 +1,152 @@
+package yusuan
+
+import (
+	"github.com/flipped-aurora/gin-vue-admin/server/global"
+    "github.com/flipped-aurora/gin-vue-admin/server/model/yusuan"
+    yusuanReq "github.com/flipped-aurora/gin-vue-admin/server/model/yusuan/request"
+    "github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+    "github.com/flipped-aurora/gin-vue-admin/server/service"
+    "github.com/gin-gonic/gin"
+    "go.uber.org/zap"
+)
+
+type YusuanxiangmuApi struct {
+}
+
+var ysxmService = service.ServiceGroupApp.YusuanServiceGroup.YusuanxiangmuService
+
+
+// CreateYusuanxiangmu 创建项目预算-逐月收入表
+// @Tags Yusuanxiangmu
+// @Summary 创建项目预算-逐月收入表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body yusuan.Yusuanxiangmu true "创建项目预算-逐月收入表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
+// @Router /ysxm/createYusuanxiangmu [post]
+func (ysxmApi *YusuanxiangmuApi) CreateYusuanxiangmu(c *gin.Context) {
+	var ysxm yusuan.Yusuanxiangmu
+	err := c.ShouldBindJSON(&ysxm)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if err := ysxmService.CreateYusuanxiangmu(&ysxm); err != nil {
+        global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		response.FailWithMessage("创建失败", c)
+	} else {
+		response.OkWithMessage("创建成功", c)
+	}
+}
+
+// DeleteYusuanxiangmu 删除项目预算-逐月收入表
+// @Tags Yusuanxiangmu
+// @Summary 删除项目预算-逐月收入表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body yusuan.Yusuanxiangmu true "删除项目预算-逐月收入表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
+// @Router /ysxm/deleteYusuanxiangmu [delete]
+func (ysxmApi *YusuanxiangmuApi) DeleteYusuanxiangmu(c *gin.Context) {
+	项目名称 := c.Query("项目名称")
+	if err := ysxmService.DeleteYusuanxiangmu(项目名称); err != nil {
+        global.GVA_LOG.Error("删除失败!", zap.Error(err))
+		response.FailWithMessage("删除失败", c)
+	} else {
+		response.OkWithMessage("删除成功", c)
+	}
+}
+
+// DeleteYusuanxiangmuByIds 批量删除项目预算-逐月收入表
+// @Tags Yusuanxiangmu
+// @Summary 批量删除项目预算-逐月收入表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
+// @Router /ysxm/deleteYusuanxiangmuByIds [delete]
+func (ysxmApi *YusuanxiangmuApi) DeleteYusuanxiangmuByIds(c *gin.Context) {
+	项目名称s := c.QueryArray("项目名称s[]")
+	if err := ysxmService.DeleteYusuanxiangmuByIds(项目名称s); err != nil {
+        global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
+		response.FailWithMessage("批量删除失败", c)
+	} else {
+		response.OkWithMessage("批量删除成功", c)
+	}
+}
+
+// UpdateYusuanxiangmu 更新项目预算-逐月收入表
+// @Tags Yusuanxiangmu
+// @Summary 更新项目预算-逐月收入表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body yusuan.Yusuanxiangmu true "更新项目预算-逐月收入表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
+// @Router /ysxm/updateYusuanxiangmu [put]
+func (ysxmApi *YusuanxiangmuApi) UpdateYusuanxiangmu(c *gin.Context) {
+	var ysxm yusuan.Yusuanxiangmu
+	err := c.ShouldBindJSON(&ysxm)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if err := ysxmService.UpdateYusuanxiangmu(ysxm); err != nil {
+        global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage("更新失败", c)
+	} else {
+		response.OkWithMessage("更新成功", c)
+	}
+}
+
+// FindYusuanxiangmu 用id查询项目预算-逐月收入表
+// @Tags Yusuanxiangmu
+// @Summary 用id查询项目预算-逐月收入表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query yusuan.Yusuanxiangmu true "用id查询项目预算-逐月收入表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Router /ysxm/findYusuanxiangmu [get]
+func (ysxmApi *YusuanxiangmuApi) FindYusuanxiangmu(c *gin.Context) {
+	项目名称 := c.Query("项目名称")
+	if reysxm, err := ysxmService.GetYusuanxiangmu(项目名称); err != nil {
+        global.GVA_LOG.Error("查询失败!", zap.Error(err))
+		response.FailWithMessage("查询失败", c)
+	} else {
+		response.OkWithData(gin.H{"reysxm": reysxm}, c)
+	}
+}
+
+// GetYusuanxiangmuList 分页获取项目预算-逐月收入表列表
+// @Tags Yusuanxiangmu
+// @Summary 分页获取项目预算-逐月收入表列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query yusuanReq.YusuanxiangmuSearch true "分页获取项目预算-逐月收入表列表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Router /ysxm/getYusuanxiangmuList [get]
+func (ysxmApi *YusuanxiangmuApi) GetYusuanxiangmuList(c *gin.Context) {
+	var pageInfo yusuanReq.YusuanxiangmuSearch
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if list, total, err := ysxmService.GetYusuanxiangmuInfoList(pageInfo); err != nil {
+	    global.GVA_LOG.Error("获取失败!", zap.Error(err))
+        response.FailWithMessage("获取失败", c)
+    } else {
+        response.OkWithDetailed(response.PageResult{
+            List:     list,
+            Total:    total,
+            Page:     pageInfo.Page,
+            PageSize: pageInfo.PageSize,
+        }, "获取成功", c)
+    }
+}

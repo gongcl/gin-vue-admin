@@ -1,0 +1,17 @@
+package request
+
+import (
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	
+	
+)
+
+type YusuanxiangmuSearch struct{
+    
+                      交付部  string `json:"交付部" form:"交付部" `
+                      项目名称  string `json:"项目名称" form:"项目名称" `
+                      客户名称  string `json:"客户名称" form:"客户名称" `
+    request.PageInfo
+    Sort  string `json:"sort" form:"sort"`
+    Order string `json:"order" form:"order"`
+}
