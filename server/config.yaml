@@ -12,7 +12,7 @@ autocode:
     server-api: /api/v1/%s
     server-plug: /plugin/%s
     server-initialize: /initialize
-    root: D:\GitSpace\MS\gin-vue-admin
+    root: /Users/gongchuanlong/MS/gin-vue-admin
     web-table: /view
     web: /web/src
     server-service: /service/%s
@@ -50,22 +50,38 @@ cors:
           expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type
           allow-credentials: true
 db-list:
-    - type: ""
-      alias-name: ""
+    - type: "mysql"
+      alias-name: "sys_db"
       prefix: ""
-      port: ""
-      config: ""
-      db-name: ""
-      username: ""
-      password: ""
-      path: ""
+      port: "3306"
+      config: "charset=utf8mb4&parseTime=True&loc=Local"
+      db-name: "gin-vue-admin"
+      username: "root"
+      password: "gg123456"
+      path: "127.0.0.1"
       engine: ""
-      log-mode: ""
+      log-mode: error
       max-idle-conns: 10
       max-open-conns: 100
       singular: false
       log-zap: false
-      disable: true
+      disable: false
+    - type: mysql
+      alias-name: "ms_db"
+      prefix: ""
+      port: 3306
+      config: charset=utf8mb4&parseTime=True&loc=Local
+      db-name: gin-mydb
+      username: root
+      password: gg123456
+      path: 127.0.0.1
+      engine: ""
+      log-mode: error
+      max-idle-conns: 10
+      max-open-conns: 100
+      singular: false
+      log-zap: false
+      disable: false
 email:
     to: xxx@qq.com
     from: xxx@163.com
@@ -83,7 +99,7 @@ hua-wei-obs:
     access-key: you-access-key
     secret-key: you-secret-key
 jwt:
-    signing-key: 1363f796-9573-4516-8cc7-12d3116d5da4
+    signing-key: 67968435-8208-43f5-b254-8bd8f46c3057
     expires-time: 7d
     buffer-time: 1d
     issuer: qmPlus
@@ -123,7 +139,7 @@ mysql:
     prefix: ""
     port: "3306"
     config: charset=utf8mb4&parseTime=True&loc=Local
-    db-name: gin-vue-db
+    db-name: gin-vue-admin
     username: root
     password: gg123456
     path: 127.0.0.1

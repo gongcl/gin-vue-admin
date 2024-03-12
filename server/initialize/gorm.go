@@ -1,16 +1,15 @@
 package initialize
 
 import (
-	"os"
-
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/example"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/hrms"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/moneyms"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/msysmoney"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
-
 	"go.uber.org/zap"
 	"gorm.io/gorm"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/hrms"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/msysmoney"
+	"os"
 )
 
 func Gorm() *gorm.DB {
@@ -31,6 +30,8 @@ func Gorm() *gorm.DB {
 }
 
 func RegisterTables() {
+	ms_db := global.GetGlobalDBByDBName("ms_db")
+
 	db := global.GVA_DB
 	err := db.AutoMigrate(
 
@@ -59,4 +60,6 @@ func RegisterTables() {
 		os.Exit(0)
 	}
 	global.GVA_LOG.Info("register table success")
+	ms_db.AutoMigrate(moneyms.MsYsnrXm{})
+
 }
