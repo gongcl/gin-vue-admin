@@ -55,7 +55,7 @@ db-list:
       prefix: ""
       port: "3306"
       config: "charset=utf8mb4&parseTime=True&loc=Local"
-      db-name: "gin-vue-admin"
+      db-name: "gin-vue-db"
       username: "root"
       password: "gg123456"
       path: "127.0.0.1"
@@ -139,7 +139,7 @@ mysql:
     prefix: ""
     port: "3306"
     config: charset=utf8mb4&parseTime=True&loc=Local
-    db-name: gin-vue-admin
+    db-name: gin-vue-db
     username: root
     password: gg123456
     path: 127.0.0.1

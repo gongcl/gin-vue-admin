@@ -10,6 +10,7 @@ import (
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"os"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/htxm"
 )
 
 func Gorm() *gorm.DB {
@@ -60,6 +61,6 @@ func RegisterTables() {
 		os.Exit(0)
 	}
 	global.GVA_LOG.Info("register table success")
-	ms_db.AutoMigrate(moneyms.MsYsnrXm{})
+	ms_db.AutoMigrate(moneyms.MsYsnrXm{}, htxm.MsHtList{}, htxm.MsXmList{})
 
 }

@@ -94,6 +94,11 @@ func Routers() *gin.Engine {
 		moneymsRouter := router.RouterGroupApp.Moneyms
 		moneymsRouter.InitMsYsnrXmRouter(PrivateGroup)
 	}
+	{
+		htxmRouter := router.RouterGroupApp.Htxm
+		htxmRouter.InitMsHtListRouter(PrivateGroup)
+		htxmRouter.InitMsXmListRouter(PrivateGroup)
+	}
 
 	global.GVA_LOG.Info("router register success")
 	return Router

@@ -3,6 +3,7 @@ package v1
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/api/v1/example"
 	"github.com/flipped-aurora/gin-vue-admin/server/api/v1/hrms"
+	"github.com/flipped-aurora/gin-vue-admin/server/api/v1/htxm"
 	"github.com/flipped-aurora/gin-vue-admin/server/api/v1/moneyms"
 	"github.com/flipped-aurora/gin-vue-admin/server/api/v1/msysmoney"
 	"github.com/flipped-aurora/gin-vue-admin/server/api/v1/system"
@@ -14,6 +15,7 @@ type ApiGroup struct {
 	HrmsApiGroup      hrms.ApiGroup
 	MsysmoneyApiGroup msysmoney.ApiGroup
 	MoneymsApiGroup   moneyms.ApiGroup
+	HtxmApiGroup      htxm.ApiGroup
 }
 
 var ApiGroupApp = new(ApiGroup)
